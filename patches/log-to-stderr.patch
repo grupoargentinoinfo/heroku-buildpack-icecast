@@ -1,0 +1,24 @@
+From 2bb2691391e4e5f0399ac87b94f333fdec042666 Mon Sep 17 00:00:00 2001
+From: Corey Donohoe <atmos@atmos.org>
+Date: Sun, 4 Nov 2012 18:58:18 -0800
+Subject: [PATCH] log everything from files to stderr
+
+---
+ src/log/log.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/log/log.c b/src/log/log.c
+index 2a08d4e..cfe12b6 100644
+--- a/src/log/log.c
++++ b/src/log/log.c
+@@ -569,6 +569,7 @@ void log_write(int log_id, unsigned priority, const char *cat, const char *func,
+     if (_log_open (log_id))
+     {
+         int len = create_log_entry (log_id, pre, line);
++        fprintf(stderr, "%s\n", line);
+         if (len > 0)
+             loglist[log_id].size += len;
+     }
+-- 
+1.9.3
+

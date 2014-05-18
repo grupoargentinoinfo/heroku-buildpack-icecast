@@ -1,0 +1,45 @@
+From 918514acd5acdf7667ba39cc24037b4431b781d1 Mon Sep 17 00:00:00 2001
+From: Corey Donohoe <atmos@atmos.org>
+Date: Sun, 4 Nov 2012 15:41:58 -0800
+Subject: [PATCH] support reading port from the environment instead of the
+ config file
+
+---
+ src/cfgfile.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/src/cfgfile.c b/src/cfgfile.c
+index 5e81d1b..21d56f6 100644
+--- a/src/cfgfile.c
++++ b/src/cfgfile.c
+@@ -391,7 +391,7 @@ static void _parse_root(xmlDocPtr doc, xmlNodePtr node,
+     char *tmp;
+ 
+     configuration->listen_sock = calloc (1, sizeof (*configuration->listen_sock));
+-    configuration->listen_sock->port = 8000;
++    configuration->listen_sock->port = atoi(getenv("PORT"));
+     configuration->listen_sock_count = 1;
+ 
+     do {
+@@ -494,7 +494,7 @@ static void _parse_root(xmlDocPtr doc, xmlNodePtr node,
+         configuration->listen_sock_count--;
+     }
+     if (configuration->port == 0)
+-        configuration->port = 8000;
++        configuration->port = atoi(getenv("PORT"));
+ }
+ 
+ static void _parse_limits(xmlDocPtr doc, xmlNodePtr node, 
+@@ -796,7 +796,8 @@ static void _parse_listen_socket(xmlDocPtr doc, xmlNodePtr node,
+ 
+     if (listener == NULL)
+         return;
+-    listener->port = 8000;
++
++    listener->port = atoi(getenv("PORT"));
+ 
+     do {
+         if (node == NULL) break;
+-- 
+1.9.3
+

@@ -6,6 +6,8 @@ ICECAST_TAR="http://downloads.xiph.org/releases/icecast/icecast-2.4.0.tar.gz"
 
 VENDORED_ICECAST="$1/vendor/icecast"
 
+BP_DIR=$(cd $(dirname $0); cd ..; pwd)
+
 # Downlad dependencies
 echo "-----> Downloading icecast source dependencies"
 
@@ -34,8 +36,13 @@ cd /tmp/libvorbis
 make
 make install
 
-echo "--> Compiling icecast"
 cd /tmp/icecast
+echo "--> Applying Heroku specific patches to icecast"
+patch -p1 < $BP_DIR/patches/log-to-stderr.patch
+patch -p1 < $BP_DIR/patches/read-port-from-environment.patch
+#patch < $BP_DIR/patches/remove-explicit-port-mapping-m3u.patch
+
+echo "--> Compiling icecast"
 ./configure --prefix="$VENDORED_ICECAST"
 make
 make install
