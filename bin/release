@@ -3,7 +3,7 @@
 cat << EOF
 ---
 config_vars:
-  PATH: "vendor/icecast/bin:/usr/bin:/bin"
+  PATH: "vendor/bin:/usr/bin:/bin"
 default_process_types:
-  web: vendor/icecast/bin/icecast -c config/icecast.xml
+  web: vendor/bin/icecast -c config/icecast.xml
 EOF

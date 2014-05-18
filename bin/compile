@@ -1,21 +1,41 @@
 #!/bin/sh -e
 
-AWESOME_VM_BINARY="http://atmos-vulcan.herokuapp.com/output/65b59774-2caa-4e07-90e6-c354c240ae28"
-AWESOME_VM_VENDOR="vendor/icecast"
+LIBOGG_TAR="http://www.vorbis.com/files/1.0.1/unix/libogg-1.1.tar.gz"
+LIBVORBIS_TAR="http://www.vorbis.com/files/1.0.1/unix/libvorbis-1.0.1.tar.gz"
+ICECAST_TAR="http://downloads.xiph.org/releases/icecast/icecast-2.4.0.tar.gz"
 
-# vendor awesome-vm
-mkdir -p $1/$AWESOME_VM_VENDOR
-curl $AWESOME_VM_BINARY -o - | tar -xz -C $1/$AWESOME_VM_VENDOR -f -
+VENDORED_ICECAST="$1/vendor/icecast"
 
-indent() {
-  sed -u 's/^/       /'
-}
+# Downlad dependencies
+echo "-----> Downloading icecast source dependencies"
 
-echo "-----> Found an icecast.xml file"
+mkdir -p /tmp/libogg
+mkdir -p /tmp/libvorbis
+mkdir -p /tmp/icecast
 
-if [ ! -s $1/config/icecast.xml ]; then
-  echo "icecast.xml was empty"
-  exit 1
-else
-  exit 0
-fi
+curl "$LIBOGG_TAR"    | tar -xz -C /tmp/libogg    -f - --strip 1
+curl "$LIBVORBIS_TAR" | tar -xz -C /tmp/libvorbis -f - --strip 1
+curl "$ICECAST_TAR"   | tar -xz -C /tmp/icecast   -f - --strip 1
+
+echo "-----> Compiling dependencies and icecast server"
+
+mkdir -p "$VENDORED_ICECAST"
+mkdir -p "$VENDORED_ICECAST/var/log/icecast"
+
+echo "--> Compiling libogg"
+cd /tmp/libogg
+./configure --prefix="$VENDORED_ICECAST"
+make
+make install
+
+echo "--> Compiling libvorbis"
+cd /tmp/libvorbis
+./configure --prefix="$VENDORED_ICECAST"
+make
+make install
+
+echo "--> Compiling icecast"
+cd /tmp/icecast
+./configure --prefix="$VENDORED_ICECAST"
+make
+make install
