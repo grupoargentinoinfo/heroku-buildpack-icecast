@@ -1,3 +1,11 @@
+## Reason why this doesnt't work (read first!)
+
+When I forked this repo I thought it was a cool idea to use heroku for an icecast server. However, after spending a few hours reworking the build pack to compile from source. I realized this is more work to setup than it should be. The main issue (mentiond later in this original readme) is that the source connection requests won't get through to the server. That's because icecast uses a non-standard HTTP verb (`SOURCE`) to connect to the server for streaming. Heroku's router only supports the standard verbs (`GET`, `POST`, etc..).
+
+In icecast 2.4 it IS possible to use `PUT` to conect a source to the server, but in practice no source clients support this.
+
+---
+
 Icecast on Heroku
 =================
 
