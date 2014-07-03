@@ -1,7 +1,7 @@
 #!/bin/sh -e
 
 if [ -f $1/config/icecast.xml ]; then
-  echo "Icecast Application Detected"
+  echo "Icecast 2.4"
   exit 0
 else
   exit 1
