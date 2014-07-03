@@ -56,37 +56,37 @@ export PATH=$VENDORED_ICECAST/bin:$PATH
 
 echo "--> Compiling libogg"
 cd /tmp/libogg
-./configure --quiet --prefix="$VENDORED_ICECAST"
+./configure --quiet --enable-shared=no --enable-static --prefix="$VENDORED_ICECAST"
 make $MAKE_OPTS
 make install
 
 echo "--> Compiling libvorbis"
 cd /tmp/libvorbis
-./configure --quiet --prefix="$VENDORED_ICECAST" --with-ogg="$VENDORED_ICECAST"
+./configure --quiet --enable-shared=no --enable-static --prefix="$VENDORED_ICECAST" --with-ogg="$VENDORED_ICECAST"
 make $MAKE_OPTS
 make install
 
 echo "--> Compiling libspeex"
 cd /tmp/libspeex
-./configure --quiet --prefix="$VENDORED_ICECAST"
+./configure --quiet --enable-shared=no --enable-static --prefix="$VENDORED_ICECAST"
 make $MAKE_OPTS
 make install
 
 echo "--> Compiling libtheora"
 cd /tmp/libtheora
-./configure --quiet --prefix="$VENDORED_ICECAST" --with-ogg="$VENDORED_ICECAST" --with-vorbis="$VENDORED_ICECAST"
+./configure --quiet --enable-shared=no --enable-static --prefix="$VENDORED_ICECAST" --with-ogg="$VENDORED_ICECAST" --with-vorbis="$VENDORED_ICECAST"
 make $MAKE_OPTS
 make install
 
 echo "--> Compiling libkate"
 cd /tmp/libkate
-./configure --quiet --prefix="$VENDORED_ICECAST"
+./configure --quiet --enable-shared=no --enable-static --prefix="$VENDORED_ICECAST"
 make $MAKE_OPTS
 make install
 
 echo "--> Compiling opus"
 cd /tmp/opus
-./configure --quiet --prefix="$VENDORED_ICECAST"
+./configure --quiet --enable-shared=no --enable-static --prefix="$VENDORED_ICECAST"
 make $MAKE_OPTS
 make install
 
@@ -104,7 +104,7 @@ make install
 
 echo "--> Compiling icecast"
 cd /tmp/icecast
-./configure --quiet --prefix="$VENDORED_ICECAST" \
+./configure --quiet --enable-shared=no --enable-static --prefix="$VENDORED_ICECAST" \
 	--with-ogg="$VENDORED_ICECAST" --with-vorbis="$VENDORED_ICECAST" \
 	--with-theora="$VENDORED_ICECAST" --with-speex="$VENDORED_ICECAST"
 make $MAKE_OPTS
