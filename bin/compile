@@ -27,15 +27,15 @@ mkdir -p /tmp/libxml2
 mkdir -p /tmp/libxslt
 mkdir -p /tmp/icecast
 
-curl "$LIBOGG_TAR"    | tar -xz -C /tmp/libogg    -f - --strip 1
-curl "$LIBVORBIS_TAR" | tar -xz -C /tmp/libvorbis -f - --strip 1
-curl "$LIBSPEEX_TAR"  | tar -xz -C /tmp/libspeex  -f - --strip 1
-curl "$LIBKATE_TAR"   | tar -xz -C /tmp/libkate  -f - --strip 1
-curl "$LIBTHEORA_TAR" | tar -xz -C /tmp/libtheora -f - --strip 1
-curl "$OPUS_TAR"      | tar -xz -C /tmp/opus      -f - --strip 1
-curl "$LIBXML2_TAR"   | tar -xz -C /tmp/libxml2   -f - --strip 1
-curl "$LIBXSLT_TAR"   | tar -xz -C /tmp/libxslt   -f - --strip 1
-curl "$ICECAST_TAR"   | tar -xz -C /tmp/icecast   -f - --strip 1
+curl -q "$LIBOGG_TAR"    | tar -xz -C /tmp/libogg    -f - --strip 1
+curl -q "$LIBVORBIS_TAR" | tar -xz -C /tmp/libvorbis -f - --strip 1
+curl -q "$LIBSPEEX_TAR"  | tar -xz -C /tmp/libspeex  -f - --strip 1
+curl -q "$LIBKATE_TAR"   | tar -xz -C /tmp/libkate   -f - --strip 1
+curl -q "$LIBTHEORA_TAR" | tar -xz -C /tmp/libtheora -f - --strip 1
+curl -q "$OPUS_TAR"      | tar -xz -C /tmp/opus      -f - --strip 1
+curl -q "$LIBXML2_TAR"   | tar -xz -C /tmp/libxml2   -f - --strip 1
+curl -q "$LIBXSLT_TAR"   | tar -xz -C /tmp/libxslt   -f - --strip 1
+curl -q "$ICECAST_TAR"   | tar -xz -C /tmp/icecast   -f - --strip 1
 
 echo "-----> Compiling dependencies and icecast server"
 
@@ -47,44 +47,37 @@ export PATH=$VENDORED_ICECAST/bin:$PATH
 
 echo "--> Compiling libogg"
 cd /tmp/libogg
-./configure --prefix="$VENDORED_ICECAST"
 make
+./configure --quiet --prefix="$VENDORED_ICECAST"
 make install
 
 echo "--> Compiling libvorbis"
 cd /tmp/libvorbis
-./configure --prefix="$VENDORED_ICECAST" --with-ogg="$VENDORED_ICECAST"
 make
+./configure --quiet --prefix="$VENDORED_ICECAST" --with-ogg="$VENDORED_ICECAST"
 make install
 
 echo "--> Compiling libspeex"
 cd /tmp/libspeex
-./configure --prefix="$VENDORED_ICECAST"
 make
+./configure --quiet --prefix="$VENDORED_ICECAST"
 make install
 
 echo "--> Compiling libtheora"
 cd /tmp/libtheora
-./configure --prefix="$VENDORED_ICECAST" --with-ogg="$VENDORED_ICECAST" --with-vorbis="$VENDORED_ICECAST"
-make
+./configure --quiet --prefix="$VENDORED_ICECAST" --with-ogg="$VENDORED_ICECAST" --with-vorbis="$VENDORED_ICECAST"
 make install
 
 echo "--> Compiling libkate"
 cd /tmp/libkate
-./configure --prefix="$VENDORED_ICECAST"
 make
+./configure --quiet --prefix="$VENDORED_ICECAST"
 make install
 
 echo "--> Compiling opus"
 cd /tmp/opus
-./configure --prefix="$VENDORED_ICECAST"
 make
-make install
-
-echo "--> Compiling libxml2"
-cd /tmp/libxml2
-./configure --prefix="$VENDORED_ICECAST"
-make
+./configure --quiet --prefix="$VENDORED_ICECAST"
 make install
 
 echo "--> Compiling libxslt"
@@ -100,6 +93,6 @@ patch -p1 < $BP_DIR/patches/read-port-from-environment.patch
 #patch < $BP_DIR/patches/remove-explicit-port-mapping-m3u.patch
 
 echo "--> Compiling icecast"
-./configure --prefix="$VENDORED_ICECAST" --with-ogg="$VENDORED_ICECAST" --with-vorbis="$VENDORED_ICECAST"
 make
+./configure --quiet --prefix="$VENDORED_ICECAST" --with-ogg="$VENDORED_ICECAST" --with-vorbis="$VENDORED_ICECAST"
 make install
