@@ -33,8 +33,8 @@ curl -q "$LIBSPEEX_TAR"  | tar -xz -C /tmp/libspeex  -f - --strip 1
 curl -q "$LIBKATE_TAR"   | tar -xz -C /tmp/libkate   -f - --strip 1
 curl -q "$LIBTHEORA_TAR" | tar -xz -C /tmp/libtheora -f - --strip 1
 curl -q "$OPUS_TAR"      | tar -xz -C /tmp/opus      -f - --strip 1
-curl -q "$LIBXML2_TAR"   | tar -xz -C /tmp/libxml2   -f - --strip 1
-curl -q "$LIBXSLT_TAR"   | tar -xz -C /tmp/libxslt   -f - --strip 1
+#curl -q "$LIBXML2_TAR"   | tar -xz -C /tmp/libxml2   -f - --strip 1
+#curl -q "$LIBXSLT_TAR"   | tar -xz -C /tmp/libxslt   -f - --strip 1
 curl -q "$ICECAST_TAR"   | tar -xz -C /tmp/icecast   -f - --strip 1
 
 cd /tmp/icecast
@@ -86,12 +86,17 @@ make
 ./configure --quiet --prefix="$VENDORED_ICECAST"
 make install
 
-echo "--> Compiling libxslt"
-cd /tmp/libxslt
-./configure --prefix="$VENDORED_ICECAST"
-make
-make install
+#echo "--> Compiling libxml2"
+#cd /tmp/libxml2
+#./configure --prefix="$VENDORED_ICECAST"
+#make
+#make install
 
+#echo "--> Compiling libxslt"
+#cd /tmp/libxslt
+#./configure --prefix="$VENDORED_ICECAST"
+#make
+#make install
 
 echo "--> Compiling icecast"
 make
