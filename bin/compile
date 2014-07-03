@@ -53,7 +53,7 @@ make install
 
 echo "--> Compiling libvorbis"
 cd /tmp/libvorbis
-./configure --prefix="$VENDORED_ICECAST"
+./configure --prefix="$VENDORED_ICECAST" --with-ogg="$VENDORED_ICECAST"
 make
 make install
 
@@ -65,7 +65,7 @@ make install
 
 echo "--> Compiling libtheora"
 cd /tmp/libtheora
-./configure --prefix="$VENDORED_ICECAST"
+./configure --prefix="$VENDORED_ICECAST" --with-ogg="$VENDORED_ICECAST" --with-vorbis="$VENDORED_ICECAST"
 make
 make install
 
@@ -100,6 +100,6 @@ patch -p1 < $BP_DIR/patches/read-port-from-environment.patch
 #patch < $BP_DIR/patches/remove-explicit-port-mapping-m3u.patch
 
 echo "--> Compiling icecast"
-./configure --prefix="$VENDORED_ICECAST"
+./configure --prefix="$VENDORED_ICECAST" --with-ogg="$VENDORED_ICECAST" --with-vorbis="$VENDORED_ICECAST"
 make
 make install
