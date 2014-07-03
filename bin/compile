@@ -104,6 +104,8 @@ make install
 
 echo "--> Compiling icecast"
 cd /tmp/icecast
-./configure --quiet --prefix="$VENDORED_ICECAST" --with-ogg="$VENDORED_ICECAST" --with-vorbis="$VENDORED_ICECAST"
+./configure --quiet --prefix="$VENDORED_ICECAST" \
+	--with-ogg="$VENDORED_ICECAST" --with-vorbis="$VENDORED_ICECAST" \
+	--with-theora="$VENDORED_ICECAST" --with-speex="$VENDORED_ICECAST"
 make $MAKE_OPTS
 make install
