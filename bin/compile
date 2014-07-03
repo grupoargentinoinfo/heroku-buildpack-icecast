@@ -42,6 +42,9 @@ echo "-----> Compiling dependencies and icecast server"
 mkdir -p "$VENDORED_ICECAST"
 mkdir -p "$VENDORED_ICECAST/var/log/icecast"
 
+export LD_LIBRARY_PATH=$VENDORED_ICECAST/lib:$LD_LIBRARY_PATH
+export PATH=$VENDORED_ICECAST/bin:$LD_LIBRARY_PATH
+
 echo "--> Compiling libogg"
 cd /tmp/libogg
 ./configure --prefix="$VENDORED_ICECAST"
