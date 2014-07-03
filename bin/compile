@@ -10,6 +10,9 @@ LIBXML2_TAR="ftp://xmlsoft.org/libxslt/libxml2-2.9.1.tar.gz"
 LIBXSLT_TAR="ftp://xmlsoft.org/libxslt/libxslt-1.1.28.tar.gz"
 ICECAST_TAR="http://downloads.xiph.org/releases/icecast/icecast-2.4.0.tar.gz"
 
+CPU_CORES=$(grep -c ^processor /proc/cpuinfo 2>/dev/null || sysctl -n hw.ncpu)
+MAKE_OPTS="-j$CPU_CORES"
+
 VENDORED_ICECAST="$1/vendor/icecast"
 
 BP_DIR=$(cd $(dirname $0); cd ..; pwd)
@@ -53,37 +56,38 @@ export PATH=$VENDORED_ICECAST/bin:$PATH
 
 echo "--> Compiling libogg"
 cd /tmp/libogg
-make
 ./configure --quiet --prefix="$VENDORED_ICECAST"
+make $MAKE_OPTS
 make install
 
 echo "--> Compiling libvorbis"
 cd /tmp/libvorbis
-make
 ./configure --quiet --prefix="$VENDORED_ICECAST" --with-ogg="$VENDORED_ICECAST"
+make $MAKE_OPTS
 make install
 
 echo "--> Compiling libspeex"
 cd /tmp/libspeex
-make
 ./configure --quiet --prefix="$VENDORED_ICECAST"
+make $MAKE_OPTS
 make install
 
 echo "--> Compiling libtheora"
 cd /tmp/libtheora
 ./configure --quiet --prefix="$VENDORED_ICECAST" --with-ogg="$VENDORED_ICECAST" --with-vorbis="$VENDORED_ICECAST"
+make $MAKE_OPTS
 make install
 
 echo "--> Compiling libkate"
 cd /tmp/libkate
-make
 ./configure --quiet --prefix="$VENDORED_ICECAST"
+make $MAKE_OPTS
 make install
 
 echo "--> Compiling opus"
 cd /tmp/opus
-make
 ./configure --quiet --prefix="$VENDORED_ICECAST"
+make $MAKE_OPTS
 make install
 
 #echo "--> Compiling libxml2"
@@ -99,6 +103,6 @@ make install
 #make install
 
 echo "--> Compiling icecast"
-make
 ./configure --quiet --prefix="$VENDORED_ICECAST" --with-ogg="$VENDORED_ICECAST" --with-vorbis="$VENDORED_ICECAST"
+make $MAKE_OPTS
 make install
