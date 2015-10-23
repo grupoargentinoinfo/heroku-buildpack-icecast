@@ -1,7 +1,7 @@
 #!/bin/sh -e
 
 LIBOGG_TAR="http://downloads.xiph.org/releases/ogg/libogg-1.3.2.tar.gz"
-LIBVORBIS_TAR="http://downloads.xiph.org/releases/vorbis/libvorbis-1.3.4.tar.gz"
+LIBVORBIS_TAR="http://downloads.xiph.org/releases/vorbis/libvorbis-1.3.5.tar.gz"
 LIBTHEORA_TAR="http://downloads.xiph.org/releases/theora/libtheora-1.1.1.tar.gz"
 LIBSPEEX_TAR="http://downloads.xiph.org/releases/speex/speex-1.2rc1.tar.gz"
 LIBKATE_TAR="https://libkate.googlecode.com/files/libkate-0.4.1.tar.gz"
@@ -11,7 +11,8 @@ LIBXSLT_TAR="ftp://xmlsoft.org/libxslt/libxslt-1.1.28.tar.gz"
 ICECAST_TAR="http://downloads.xiph.org/releases/icecast/icecast-2.4.0.tar.gz"
 
 CPU_CORES=$(grep -c ^processor /proc/cpuinfo 2>/dev/null || sysctl -n hw.ncpu)
-MAKE_OPTS="-j$CPU_CORES"
+MAKE_OPTS="--quiet -j$CPU_CORES"
+CONFIGURE_OPTS="--quiet --enable-shared=no --enable-static"
 
 VENDORED_ICECAST="$1/vendor/icecast"
 
@@ -56,56 +57,59 @@ export PATH=$VENDORED_ICECAST/bin:$PATH
 
 echo "--> Compiling libogg"
 cd /tmp/libogg
-./configure --quiet --enable-shared=no --enable-static --prefix="$VENDORED_ICECAST"
+./configure $CONFIGURE_OPTS --prefix="$VENDORED_ICECAST"
 make $MAKE_OPTS
 make install
 
 echo "--> Compiling libvorbis"
 cd /tmp/libvorbis
-./configure --quiet --enable-shared=no --enable-static --prefix="$VENDORED_ICECAST" --with-ogg="$VENDORED_ICECAST"
+./configure $CONFIGURE_OPTS --prefix="$VENDORED_ICECAST" --with-ogg="$VENDORED_ICECAST"
 make $MAKE_OPTS
 make install
 
 echo "--> Compiling libspeex"
 cd /tmp/libspeex
-./configure --quiet --enable-shared=no --enable-static --prefix="$VENDORED_ICECAST"
+./configure --quiet $CONFIGURE_OPTS --prefix="$VENDORED_ICECAST"
 make $MAKE_OPTS
 make install
 
 echo "--> Compiling libtheora"
 cd /tmp/libtheora
-./configure --quiet --enable-shared=no --enable-static --prefix="$VENDORED_ICECAST" --with-ogg="$VENDORED_ICECAST" --with-vorbis="$VENDORED_ICECAST"
+./configure --quiet $CONFIGURE_OPTS --prefix="$VENDORED_ICECAST" --with-ogg="$VENDORED_ICECAST" --with-vorbis="$VENDORED_ICECAST"
 make $MAKE_OPTS
 make install
 
 echo "--> Compiling libkate"
 cd /tmp/libkate
-./configure --quiet --enable-shared=no --enable-static --prefix="$VENDORED_ICECAST"
+./configure --quiet $CONFIGURE_OPTS --prefix="$VENDORED_ICECAST"
 make $MAKE_OPTS
 make install
 
 echo "--> Compiling opus"
 cd /tmp/opus
-./configure --quiet --enable-shared=no --enable-static --prefix="$VENDORED_ICECAST"
+./configure --quiet $CONFIGURE_OPTS --prefix="$VENDORED_ICECAST"
 make $MAKE_OPTS
 make install
 
 #echo "--> Compiling libxml2"
 #cd /tmp/libxml2
-#./configure --prefix="$VENDORED_ICECAST"
+#./configure $CONFIGURE_OPTS --prefix="$VENDORED_ICECAST"
 #make
 #make install
 
 #echo "--> Compiling libxslt"
 #cd /tmp/libxslt
-#./configure --prefix="$VENDORED_ICECAST"
+#./configure $CONFIGURE_OPTS --prefix="$VENDORED_ICECAST"
 #make
 #make install
 
 echo "--> Compiling icecast"
 cd /tmp/icecast
-./configure --quiet --enable-shared=no --enable-static --prefix="$VENDORED_ICECAST" \
+./configure $CONFIGURE_OPTS --prefix="$VENDORED_ICECAST" \
 	--with-ogg="$VENDORED_ICECAST" --with-vorbis="$VENDORED_ICECAST" \
 	--with-theora="$VENDORED_ICECAST" --with-speex="$VENDORED_ICECAST"
 make $MAKE_OPTS
 make install
+
+echo "--> Testing icecast"
+"$VENDORED_ICECAST/bin/icecast" --version
