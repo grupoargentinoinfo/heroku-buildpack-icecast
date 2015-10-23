@@ -8,7 +8,7 @@ LIBKATE_TAR="https://libkate.googlecode.com/files/libkate-0.4.1.tar.gz"
 OPUS_TAR="http://downloads.xiph.org/releases/opus/opus-1.1.tar.gz"
 LIBXML2_TAR="ftp://xmlsoft.org/libxslt/libxml2-2.9.1.tar.gz"
 LIBXSLT_TAR="ftp://xmlsoft.org/libxslt/libxslt-1.1.28.tar.gz"
-ICECAST_TAR="http://downloads.xiph.org/releases/icecast/icecast-2.4.0.tar.gz"
+ICECAST_TAR="http://downloads.xiph.org/releases/icecast/icecast-2.4.2.tar.gz"
 
 CPU_CORES=$(grep -c ^processor /proc/cpuinfo 2>/dev/null || sysctl -n hw.ncpu)
 MAKE_OPTS="--quiet -j$CPU_CORES"
