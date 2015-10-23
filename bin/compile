@@ -37,8 +37,8 @@ curl -q "$LIBSPEEX_TAR"  | tar -xz -C /tmp/libspeex  -f - --strip 1
 curl -q "$LIBKATE_TAR"   | tar -xz -C /tmp/libkate   -f - --strip 1
 curl -q "$LIBTHEORA_TAR" | tar -xz -C /tmp/libtheora -f - --strip 1
 curl -q "$OPUS_TAR"      | tar -xz -C /tmp/opus      -f - --strip 1
-#curl -q "$LIBXML2_TAR"   | tar -xz -C /tmp/libxml2   -f - --strip 1
-#curl -q "$LIBXSLT_TAR"   | tar -xz -C /tmp/libxslt   -f - --strip 1
+curl -q "$LIBXML2_TAR"   | tar -xz -C /tmp/libxml2   -f - --strip 1
+curl -q "$LIBXSLT_TAR"   | tar -xz -C /tmp/libxslt   -f - --strip 1
 curl -q "$ICECAST_TAR"   | tar -xz -C /tmp/icecast   -f - --strip 1
 
 cd /tmp/icecast
@@ -59,49 +59,49 @@ echo "--> Compiling libogg"
 cd /tmp/libogg
 ./configure $CONFIGURE_OPTS --prefix="$VENDORED_ICECAST"
 make $MAKE_OPTS
-make install
+make $MAKE_OPTS install
 
 echo "--> Compiling libvorbis"
 cd /tmp/libvorbis
 ./configure $CONFIGURE_OPTS --prefix="$VENDORED_ICECAST" --with-ogg="$VENDORED_ICECAST"
 make $MAKE_OPTS
-make install
+make $MAKE_OPTS install
 
 echo "--> Compiling libspeex"
 cd /tmp/libspeex
 ./configure --quiet $CONFIGURE_OPTS --prefix="$VENDORED_ICECAST"
 make $MAKE_OPTS
-make install
+make $MAKE_OPTS install
 
 echo "--> Compiling libtheora"
 cd /tmp/libtheora
 ./configure --quiet $CONFIGURE_OPTS --prefix="$VENDORED_ICECAST" --with-ogg="$VENDORED_ICECAST" --with-vorbis="$VENDORED_ICECAST"
 make $MAKE_OPTS
-make install
+make $MAKE_OPTS install
 
 echo "--> Compiling libkate"
 cd /tmp/libkate
 ./configure --quiet $CONFIGURE_OPTS --prefix="$VENDORED_ICECAST"
 make $MAKE_OPTS
-make install
+make $MAKE_OPTS install
 
 echo "--> Compiling opus"
 cd /tmp/opus
 ./configure --quiet $CONFIGURE_OPTS --prefix="$VENDORED_ICECAST"
 make $MAKE_OPTS
-make install
+make $MAKE_OPTS install
 
-#echo "--> Compiling libxml2"
-#cd /tmp/libxml2
-#./configure $CONFIGURE_OPTS --prefix="$VENDORED_ICECAST"
-#make
-#make install
+echo "--> Compiling libxml2"
+cd /tmp/libxml2
+./configure $CONFIGURE_OPTS --prefix="$VENDORED_ICECAST"
+make $MAKE_OPTS
+make $MAKE_OPTS install
 
-#echo "--> Compiling libxslt"
-#cd /tmp/libxslt
-#./configure $CONFIGURE_OPTS --prefix="$VENDORED_ICECAST"
-#make
-#make install
+echo "--> Compiling libxslt"
+cd /tmp/libxslt
+./configure $CONFIGURE_OPTS --prefix="$VENDORED_ICECAST"
+make $MAKE_OPTS
+make $MAKE_OPTS install
 
 echo "--> Compiling icecast"
 cd /tmp/icecast
@@ -109,7 +109,7 @@ cd /tmp/icecast
 	--with-ogg="$VENDORED_ICECAST" --with-vorbis="$VENDORED_ICECAST" \
 	--with-theora="$VENDORED_ICECAST" --with-speex="$VENDORED_ICECAST"
 make $MAKE_OPTS
-make install
+make $MAKE_OPTS install
 
 echo "--> Testing icecast"
 "$VENDORED_ICECAST/bin/icecast" --version
