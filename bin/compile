@@ -63,25 +63,25 @@ make $MAKE_OPTS install
 
 echo "--> Compiling libspeex"
 cd /tmp/libspeex
-./configure --quiet $CONFIGURE_OPTS --prefix="$VENDORED_ICECAST"
+./configure $CONFIGURE_OPTS --prefix="$VENDORED_ICECAST"
 make $MAKE_OPTS
 make $MAKE_OPTS install
 
 echo "--> Compiling libtheora"
 cd /tmp/libtheora
-./configure --quiet $CONFIGURE_OPTS --prefix="$VENDORED_ICECAST" --with-ogg="$VENDORED_ICECAST" --with-vorbis="$VENDORED_ICECAST"
+./configure $CONFIGURE_OPTS --prefix="$VENDORED_ICECAST" --with-ogg="$VENDORED_ICECAST" --with-vorbis="$VENDORED_ICECAST"
 make $MAKE_OPTS
 make $MAKE_OPTS install
 
 echo "--> Compiling libkate"
 cd /tmp/libkate
-./configure --quiet $CONFIGURE_OPTS --prefix="$VENDORED_ICECAST"
+./configure $CONFIGURE_OPTS --prefix="$VENDORED_ICECAST"
 make $MAKE_OPTS
 make $MAKE_OPTS install
 
 echo "--> Compiling opus"
 cd /tmp/opus
-./configure --quiet $CONFIGURE_OPTS --prefix="$VENDORED_ICECAST"
+./configure $CONFIGURE_OPTS --prefix="$VENDORED_ICECAST"
 make $MAKE_OPTS
 make $MAKE_OPTS install
 
