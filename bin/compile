@@ -12,7 +12,7 @@ ICECAST_TAR="http://downloads.xiph.org/releases/icecast/icecast-2.4.2.tar.gz"
 
 CPU_CORES=$(grep -c ^processor /proc/cpuinfo 2>/dev/null || sysctl -n hw.ncpu)
 MAKE_OPTS="--quiet -j$CPU_CORES"
-CONFIGURE_OPTS="--quiet --enable-shared=no --enable-static"
+CONFIGURE_OPTS="--quiet --without-python --enable-shared=no --enable-static"
 
 VENDORED_ICECAST="$1/vendor/icecast"
 
