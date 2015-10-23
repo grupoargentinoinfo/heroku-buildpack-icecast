@@ -6,5 +6,5 @@ config_vars:
   PATH: "vendor/icecast/bin:/usr/bin:/bin"
   LD_LIBRARY_PATH: "vendor/icecast/lib"
 default_process_types:
-  web: vendor/icecast/bin/icecast -c config/icecast.xml
+  web: vendor/icecast/bin/icecast-wrapper
 EOF

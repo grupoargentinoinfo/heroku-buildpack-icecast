@@ -107,3 +107,11 @@ make $MAKE_OPTS install
 
 echo "--> Testing icecast"
 "$VENDORED_ICECAST/bin/icecast" --version
+
+echo "--> Writing run script"
+cat >"$VENDORED_ICECAST/bin/icecast-wrapper" <<"EOF"
+#!/bin/bash -ex
+sed -ri "s/\\\$PORT/$PORT/g" config/icecast.xml
+exec vendor/icecast/bin/icecast -c config/icecast.xml
+EOF
+chmod +x "$VENDORED_ICECAST/bin/icecast-wrapper"
