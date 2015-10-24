@@ -108,6 +108,7 @@ echo "--> Compiling openssl"
 cd /tmp/openssl
 ./config --openssldir="$VENDORED_ICECAST" no-ssl2
 make $MAKE_OPTS
+make $MAKE_OPTS depend
 make $MAKE_OPTS install
 
 echo "--> Compiling curl"
