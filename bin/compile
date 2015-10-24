@@ -31,15 +31,15 @@ mkdir -p /tmp/libxml2
 mkdir -p /tmp/libxslt
 mkdir -p /tmp/icecast
 
-curl --silent -q "$LIBOGG_TAR"    | tar -xzv -C /tmp/libogg    -f - --strip 1
-curl --silent -q "$LIBVORBIS_TAR" | tar -xzv -C /tmp/libvorbis -f - --strip 1
-curl --silent -q "$LIBSPEEX_TAR"  | tar -xzv -C /tmp/libspeex  -f - --strip 1
-curl --silent -q "$LIBKATE_TAR"   | tar -xzv -C /tmp/libkate   -f - --strip 1
-curl --silent -q "$LIBTHEORA_TAR" | tar -xzv -C /tmp/libtheora -f - --strip 1
-curl --silent -q "$OPUS_TAR"      | tar -xzv -C /tmp/opus      -f - --strip 1
-curl --silent -q "$LIBXML2_TAR"   | tar -xzv -C /tmp/libxml2   -f - --strip 1
-curl --silent -q "$LIBXSLT_TAR"   | tar -xzv -C /tmp/libxslt   -f - --strip 1
-curl --silent -q "$ICECAST_TAR"   | tar -xzv -C /tmp/icecast   -f - --strip 1
+curl --silent -q "$LIBOGG_TAR"    | tar -xz -C /tmp/libogg    -f - --strip 1
+curl --silent -q "$LIBVORBIS_TAR" | tar -xz -C /tmp/libvorbis -f - --strip 1
+curl --silent -q "$LIBSPEEX_TAR"  | tar -xz -C /tmp/libspeex  -f - --strip 1
+curl --silent -q "$LIBKATE_TAR"   | tar -xz -C /tmp/libkate   -f - --strip 1
+curl --silent -q "$LIBTHEORA_TAR" | tar -xz -C /tmp/libtheora -f - --strip 1
+curl --silent -q "$OPUS_TAR"      | tar -xz -C /tmp/opus      -f - --strip 1
+curl --silent -q "$LIBXML2_TAR"   | tar -xz -C /tmp/libxml2   -f - --strip 1
+curl --silent -q "$LIBXSLT_TAR"   | tar -xz -C /tmp/libxslt   -f - --strip 1
+curl --silent -q "$ICECAST_TAR"   | tar -xz -C /tmp/icecast   -f - --strip 1
 
 echo "-----> Compiling dependencies and icecast server"
 
