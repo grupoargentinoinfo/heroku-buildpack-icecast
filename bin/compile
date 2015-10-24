@@ -14,7 +14,7 @@ ICECAST_TAR="http://downloads.xiph.org/releases/icecast/icecast-2.4.2.tar.gz"
 
 CPU_CORES=$(grep -c ^processor /proc/cpuinfo 2>/dev/null || sysctl -n hw.ncpu)
 MAKE_OPTS="--quiet -j$CPU_CORES"
-CONFIGURE_OPTS="--quiet --without-python --enable-shared=no --enable-static"
+CONFIGURE_OPTS="--quiet --without-python"
 
 VENDORED_ICECAST="$1/vendor/icecast"
 
@@ -106,7 +106,7 @@ make $MAKE_OPTS install
 
 echo "--> Compiling openssl"
 cd /tmp/openssl
-./configure $CONFIGURE_OPTS --prefix="$VENDORED_ICECAST"
+./config --openssldir="$VENDORED_ICECAST" no-ssl2
 make $MAKE_OPTS
 make $MAKE_OPTS install
 
