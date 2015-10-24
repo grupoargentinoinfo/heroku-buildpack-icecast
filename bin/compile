@@ -8,6 +8,8 @@ LIBKATE_TAR="https://libkate.googlecode.com/files/libkate-0.4.1.tar.gz"
 OPUS_TAR="http://downloads.xiph.org/releases/opus/opus-1.1.tar.gz"
 LIBXML2_TAR="ftp://xmlsoft.org/libxslt/libxml2-2.9.1.tar.gz"
 LIBXSLT_TAR="ftp://xmlsoft.org/libxslt/libxslt-1.1.28.tar.gz"
+OPENSSL_TAR="https://www.openssl.org/source/openssl-1.0.2d.tar.gz"
+CURL_TAR="http://curl.haxx.se/download/curl-7.45.0.tar.gz"
 ICECAST_TAR="http://downloads.xiph.org/releases/icecast/icecast-2.4.2.tar.gz"
 
 CPU_CORES=$(grep -c ^processor /proc/cpuinfo 2>/dev/null || sysctl -n hw.ncpu)
@@ -29,6 +31,8 @@ mkdir -p /tmp/opus
 mkdir -p /tmp/libtheora
 mkdir -p /tmp/libxml2
 mkdir -p /tmp/libxslt
+mkdir -p /tmp/openssl
+mkdir -p /tmp/curl
 mkdir -p /tmp/icecast
 
 curl --silent -q "$LIBOGG_TAR"    | tar -xz -C /tmp/libogg    -f - --strip 1
@@ -39,6 +43,8 @@ curl --silent -q "$LIBTHEORA_TAR" | tar -xz -C /tmp/libtheora -f - --strip 1
 curl --silent -q "$OPUS_TAR"      | tar -xz -C /tmp/opus      -f - --strip 1
 curl --silent -q "$LIBXML2_TAR"   | tar -xz -C /tmp/libxml2   -f - --strip 1
 curl --silent -q "$LIBXSLT_TAR"   | tar -xz -C /tmp/libxslt   -f - --strip 1
+curl --silent -q "$OPENSSL_TAR"   | tar -xz -C /tmp/openssl   -f - --strip 1
+curl --silent -q "$CURL_TAR"      | tar -xz -C /tmp/curl      -f - --strip 1
 curl --silent -q "$ICECAST_TAR"   | tar -xz -C /tmp/icecast   -f - --strip 1
 
 echo "-----> Compiling dependencies and icecast server"
@@ -48,6 +54,7 @@ mkdir -p "$VENDORED_ICECAST/var/log/icecast"
 
 export LD_LIBRARY_PATH=$VENDORED_ICECAST/lib:$LD_LIBRARY_PATH
 export PATH=$VENDORED_ICECAST/bin:$PATH
+export PKG_CONFIG_PATH=$VENDORED_ICECAST/lib/pkgconfig
 
 echo "--> Compiling libogg"
 cd /tmp/libogg
@@ -93,7 +100,19 @@ make $MAKE_OPTS install
 
 echo "--> Compiling libxslt"
 cd /tmp/libxslt
+./configure $CONFIGURE_OPTS --prefix="$VENDORED_ICECAST" --with-libxml-prefix="$VENDORED_ICECAST"
+make $MAKE_OPTS
+make $MAKE_OPTS install
+
+echo "--> Compiling openssl"
+cd /tmp/openssl
 ./configure $CONFIGURE_OPTS --prefix="$VENDORED_ICECAST"
+make $MAKE_OPTS
+make $MAKE_OPTS install
+
+echo "--> Compiling curl"
+cd /tmp/curl
+./configure $CONFIGURE_OPTS --prefix="$VENDORED_ICECAST" --with-ssl="$VENDORED_ICECAST"
 make $MAKE_OPTS
 make $MAKE_OPTS install
 
