@@ -8,7 +8,7 @@ LIBKATE_TAR="https://libkate.googlecode.com/files/libkate-0.4.1.tar.gz"
 OPUS_TAR="http://downloads.xiph.org/releases/opus/opus-1.1.tar.gz"
 LIBXML2_TAR="ftp://xmlsoft.org/libxslt/libxml2-2.9.1.tar.gz"
 LIBXSLT_TAR="ftp://xmlsoft.org/libxslt/libxslt-1.1.28.tar.gz"
-OPENSSL_TAR="https://www.openssl.org/source/openssl-1.0.2d.tar.gz"
+OPENSSL_TAR="https://www.openssl.org/source/openssl-1.0.2f.tar.gz"
 CURL_TAR="http://curl.haxx.se/download/curl-7.45.0.tar.gz"
 ICECAST_TAR="http://downloads.xiph.org/releases/icecast/icecast-2.4.3.tar.gz"
 
