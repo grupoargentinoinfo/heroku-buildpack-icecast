@@ -10,7 +10,7 @@ LIBXML2_TAR="ftp://xmlsoft.org/libxslt/libxml2-2.9.1.tar.gz"
 LIBXSLT_TAR="ftp://xmlsoft.org/libxslt/libxslt-1.1.28.tar.gz"
 OPENSSL_TAR="https://www.openssl.org/source/openssl-1.0.2d.tar.gz"
 CURL_TAR="http://curl.haxx.se/download/curl-7.45.0.tar.gz"
-ICECAST_TAR="http://downloads.xiph.org/releases/icecast/icecast-2.4.2.tar.gz"
+ICECAST_TAR="http://downloads.xiph.org/releases/icecast/icecast-2.4.3.tar.gz"
 
 CPU_CORES=$(grep -c ^processor /proc/cpuinfo 2>/dev/null || sysctl -n hw.ncpu)
 MAKE_OPTS="--quiet -j$CPU_CORES"
